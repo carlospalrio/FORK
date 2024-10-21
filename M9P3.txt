@@ -1,0 +1,9 @@
+1- Pot un procés modificar l'array global? No, en aquest cas els processos fills fan una còpia del vector global. Cada procés té la seva pròpia còpia de la memòria (a causa de la separació de memòria després de fer un fork()), així que els canvis fets per un procés no afecten els altres processos ni el procés pare.
+
+2- Pot un procés escollir un nom afegit per un altre procés? No, com que cada procés té la seva pròpia còpia de la memòria, els noms afegits per altres processos no estan disponibles a no ser que es faci una comunicació explícita entre els processos (com sockets, pipes, etc.).
+
+3- Pot el procés pare escollir un nom afegit per un procés fill? Tampoc. Com que el procés fill treballa en la seva pròpia còpia del vector global, el procés pare no té accés als noms afegits pels processos fills, a menys que es faci una forma de comunicació inter-processos (IPC).
+
+4- Pot un procés fill aturar o esperar que finalitzi el procés pare? No directament. Els processos fills són independents i, per tant, no tenen la capacitat d'esperar el procés pare sense utilitzar tècniques de comunicació explícites.
+
+5- Pot un procés pare aturar o esperar que finalitzi el procés fill? Sí, el procés pare pot esperar que els processos fills acabin amb la funció wait(), tal com es mostra en el codi.
